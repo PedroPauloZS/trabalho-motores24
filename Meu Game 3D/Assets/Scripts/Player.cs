@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public int velocidade = 10;
     
     Rigidbody rb;
+    private AudioSource source;
 
     public int forcaPulo = 7;
 
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("START");
         TryGetComponent(out rb);
+        TryGetComponent(out source);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,13 +41,14 @@ public class Player : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && noChao)
         {
+            source.Play();
             rb.AddForce(Vector3.up * forcaPulo,ForceMode.Impulse);
             noChao = false;
         }
         
         
         
-        if (transform.position.y <= 30)
+        if (transform.position.y <= 100)
         {
             //jogador caiu
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
